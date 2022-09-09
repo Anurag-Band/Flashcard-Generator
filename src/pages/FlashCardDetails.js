@@ -1,44 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { RiArrowGoBackLine } from "react-icons/ri";
 import { IoDownloadOutline, IoPrintOutline } from "react-icons/io5";
 import { BiArrowBack } from "react-icons/bi";
 import { useNavigate, useParams } from "react-router-dom";
-import ShareModal from "./ShareModal";
+import ShareModal from "../components/ShareModal";
+import { cardById } from "../features/flashcard/flashcardSlice";
 
-const FlashCardDetails = () => {
-  let [isOpen, setIsOpen] = useState(false);
-  function closeModal() {
-    setIsOpen(false);
-  }
-  function openModal() {
-    setIsOpen(true);
-  }
-  // ------------------
+const Flashcard = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const closeModal = () => setIsOpen(false);
+  const openModal = () => setIsOpen(true);
+
+  const { groupId } = useParams();
   const navigate = useNavigate();
 
-  const { cardid } = useParams();
-  // console.log(cardid);
+  const card = useSelector((state) => cardById(state, groupId));
 
-  const flashcard = useSelector((state) => state.flashcard.flashcards);
-
-  const [cardDetails, setCardDetails] = useState({});
   const [singleCardDetail, setSingleCardDetail] = useState({});
-  // console.log(cardDetails);
-
-  useEffect(() => {
-    const card = flashcard.find((c) => c.flashcards.id === cardid);
-
-    setCardDetails(card.flashcards);
-    // console.log(card.flashcards);
-
-    setSingleCardDetail(card.flashcards.Card[0]);
-
-    // eslint-disable-next-line
-  }, [cardid]);
 
   const displayCard = (id) => {
-    const showSingleCard = cardDetails.Card.find((c) => c.id === id);
+    const showSingleCard = card.cards.filter((c) => c.id === id);
     setSingleCardDetail(showSingleCard);
   };
 
@@ -50,11 +32,9 @@ const FlashCardDetails = () => {
           onClick={() => navigate(-1)}
         />
         <div className="flex flex-col">
-          <h2 className="text-xl font-bold">{cardDetails.groupName}</h2>
-          {cardDetails.groupDescription && (
-            <p className="text-slate-500 my-2">
-              {cardDetails.groupDescription}
-            </p>
+          <h2 className="text-xl font-bold">{card.groupname}</h2>
+          {card.groupdescription && (
+            <p className="text-slate-500 my-2">{card.groupdescription}</p>
           )}
         </div>
       </header>
@@ -63,12 +43,12 @@ const FlashCardDetails = () => {
           <h2 className="p-2 text-slate-500">Flashcards</h2>
           <hr />
           <hr className="mb-2" />
-          {cardDetails.Card &&
-            cardDetails.Card.map((card) => (
+          {card.cards &&
+            card.cards.map((card) => (
               <p
-                key={card.id}
+                key={card.cardid}
                 className="py-2 px-8 text-slate-700 font-medium hover:bg-slate-100 cursor-pointer"
-                onClick={() => displayCard(card.id)}
+                onClick={() => displayCard(card.cardid)}
               >
                 {card.cardname}
               </p>
@@ -76,7 +56,7 @@ const FlashCardDetails = () => {
         </aside>
 
         <section className="col-span-2 flex bg-white shadow-lg rounded-lg">
-          {singleCardDetail.cardimage?.secure_url && (
+          {/* {singleCardDetail.cardimage?.secure_url && (
             <div className="w-80 p-6 flex items-center">
               <img
                 src={singleCardDetail.cardimage?.secure_url}
@@ -84,24 +64,21 @@ const FlashCardDetails = () => {
                 className="object-contain"
               />
             </div>
-          )}
-          <p
-            className={`${
-              singleCardDetail.cardimage?.secure_url ? "w-1/2" : "w-full"
-            } p-6 py-10 text-slate-500`}
-          >
+          )} */}
+          <p className={`w-full p-6 py-10 text-slate-500`}>
             {singleCardDetail.carddescription}
           </p>
         </section>
         <aside className="col-span-1 flex flex-col items-center space-y-5">
           <button
+            type="button"
             onClick={openModal}
             className="flex items-center py-3 px-4 w-60 space-x-5 bg-white rounded-md shadow-lg active:scale-100 transition-all duration-100 hover:scale-105"
           >
             <RiArrowGoBackLine className="scale-x-[-1]" />
             <span>Share</span>
-            <ShareModal isOpen={isOpen} closeModal={closeModal} />
           </button>
+
           <button className="flex items-center py-3 px-4 w-60 space-x-5 bg-white rounded-md shadow-lg active:scale-100 transition-all duration-100 hover:scale-105">
             <IoDownloadOutline />
             <span>Download</span>
@@ -112,8 +89,9 @@ const FlashCardDetails = () => {
           </button>
         </aside>
       </main>
+      <ShareModal isOpen={isOpen} closeModal={closeModal} />
     </section>
   );
 };
 
-export default FlashCardDetails;
+export default Flashcard;

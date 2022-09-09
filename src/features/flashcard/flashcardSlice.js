@@ -4,8 +4,6 @@ const initialState = {
   flashcards: localStorage.getItem("flashcards")
     ? JSON.parse(localStorage.getItem("flashcards"))
     : [],
-
-  cardImageDetails: {},
 };
 
 export const flashcardSlice = createSlice({
@@ -13,20 +11,19 @@ export const flashcardSlice = createSlice({
   initialState,
   reducers: {
     setFlashCard(state, action) {
-      state.flashcards.push({
-        flashcards: action.payload,
-      });
+      state.flashcards.push(action.payload);
       localStorage.setItem("flashcards", JSON.stringify(state.flashcards));
     },
-
-    setCardImage(state, { payload: { index, cardImage } }) {
-      state.cardImageDetails = {
-        index,
-        cardImage,
-      };
-    },
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
-export const { setFlashCard, setCardImage } = flashcardSlice.actions;
+export const { setFlashCard } = flashcardSlice.actions;
+
+export const cardById = (state, groupId) =>
+  state.flashcard.flashcards.filter((c) => c.groupid === groupId);
+
 export default flashcardSlice.reducer;
