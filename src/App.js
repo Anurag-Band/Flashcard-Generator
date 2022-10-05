@@ -11,7 +11,7 @@ import HomePage from "./pages/HomePage";
 function App() {
   return (
     <div className="w-full min-h-screen bg-[#f8f4ef] font-Montserrat">
-      <div className="p-3 lg:px-36 container mx-auto">
+      <div className="px-5 xl:px-32 container mx-auto">
         <HomePage />
         <Routes>
           <Route path="/" element={<CreateFlashCard />} />

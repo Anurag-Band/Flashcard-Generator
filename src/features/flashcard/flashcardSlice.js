@@ -11,19 +11,17 @@ export const flashcardSlice = createSlice({
   initialState,
   reducers: {
     setFlashCard(state, action) {
-      state.flashcards.push(action.payload);
+      state.flashcards.push({
+        card: action.payload,
+      });
       localStorage.setItem("flashcards", JSON.stringify(state.flashcards));
     },
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }),
 });
 
 export const { setFlashCard } = flashcardSlice.actions;
 
-export const cardById = (state, groupId) =>
-  state.flashcard.flashcards.filter((c) => c.groupid === groupId);
+// export const cardById = (state, groupId) =>
+//   state.flashcard.flashcards.filter((c) => c.groupid === groupId);
 
 export default flashcardSlice.reducer;

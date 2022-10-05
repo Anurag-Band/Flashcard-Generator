@@ -15,26 +15,30 @@ const MyFlashCard = () => {
   return (
     <section className="flex flex-col mt-16">
       {flashcard.length > 0 ? (
-        <div className="flex flex-wrap">
-          {flashcard.slice(0, showLimit).map((card, i) => (
-            <MySingleFlashCard key={i} flashcard={card} />
-          ))}
-          <button
-            className="ml-[69rem] w-16 mt-1 font-semibold text-lg text-red-600 outline-none border-none active:outline-none active:border-none"
-            onClick={() => setShowAll(!showAll)}
-          >
-            See all
-          </button>
+        <div>
+          <div className="flex flex-wrap">
+            {flashcard.slice(0, showLimit).map(({ card }, i) => (
+              <MySingleFlashCard key={i} flashcard={card} />
+            ))}
+          </div>
+          <div className="flex justify-end mr-10">
+            <button
+              className="w-16 mt-1 font-semibold text-lg text-red-600 outline-none border-none active:outline-none active:border-none"
+              onClick={() => setShowAll(!showAll)}
+            >
+              See all
+            </button>
+          </div>
         </div>
       ) : (
         <div className="flex items-center justify-center bg-white shadow-lg p-20">
-          <h1 className="font-semibold text-2xl text-slate-500">
-            Nothing to SHOW, Go to
+          <h1 className="font-semibold text-xl text-slate-500">
+            Nothing to SHOW, Go to{" "}
             <span
               className="text-blue-500 cursor-pointer"
               onClick={() => navigate("/")}
             >
-              Create Flashcard
+              Create Flashcard{" "}
             </span>
             to Create New
           </h1>
