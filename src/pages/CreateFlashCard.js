@@ -23,6 +23,7 @@ const CreateFlashCard = () => {
 
   return (
     <Formik
+      // This sets the Initial Values of form input for the Formik, which wil afer being change according to the user Input
       initialValues={{
         groupid: nanoid(),
         groupname: "",
@@ -118,6 +119,8 @@ const CreateFlashCard = () => {
 
           {/* Add Cards Section  */}
           <div className="text-black drop-shadow-lg rounded-lg">
+            {/* FieldArray component from Formik which will create Dynamic Form for the custom input */}
+
             <FieldArray name="cards">
               {(arrayHelper) => {
                 const cards = values.cards;
@@ -197,6 +200,7 @@ const CreateFlashCard = () => {
                     <button
                       type="button"
                       onClick={() =>
+                        //  This button will add the new group of inputs to the dynamic form
                         arrayHelper.push({
                           cardid: nanoid(),
                           cardname: "",

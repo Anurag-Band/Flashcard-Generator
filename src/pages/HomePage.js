@@ -9,6 +9,7 @@ const HomePage = () => {
       </h1>
       <div className="flex items-center space-x-10 mb-3">
         <button className="text-sm font-semibold text-red-600">
+          {/* Navlink component to sets selected route */}
           <NavLink
             to={"/"}
             style={({ isActive }) => ({
@@ -21,6 +22,7 @@ const HomePage = () => {
           </NavLink>
         </button>
         <button className="text-sm font-semibold text-red-600">
+          {/* Navlink component to sets selected route */}
           <NavLink
             to={"/myflashcard"}
             style={({ isActive }) => ({

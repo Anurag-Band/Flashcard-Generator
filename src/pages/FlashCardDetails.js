@@ -16,11 +16,13 @@ const Flashcard = () => {
   const { groupId } = useParams();
   const navigate = useNavigate();
 
+  // gets the card from the Redux Store using useSelector Hook
   const cards = useSelector((state) => state.flashcard.flashcards);
 
   const [ourCard, setOurCard] = useState({});
   const [singleCardDetail, setSingleCardDetail] = useState({});
 
+  // This function will sets the Display card which will seclected by the user from the left side menu
   const displayCard = (id) => {
     const showSingleCard = ourCard.cards.filter((c) => c.cardid === id);
     setSingleCardDetail(showSingleCard[0]);
@@ -28,7 +30,7 @@ const Flashcard = () => {
 
   useEffect(() => {
     if (!groupId || !cards) return;
-
+    // Filters the user selected card from the Cards from the store
     const temp = cards.filter((c) => c.card.groupid === groupId);
     setOurCard(temp[0].card);
   }, [groupId]);

@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import DemoImg from "../assets/gray.jpg";
 
+// Flashcard component which displays the data in each card
 const MySingleFlashCard = ({ flashcard }) => {
   const navigate = useNavigate();
 

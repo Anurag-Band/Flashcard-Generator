@@ -13,6 +13,7 @@ function App() {
     <div className="w-full min-h-screen bg-[#f8f4ef] font-Montserrat">
       <div className="px-5 xl:px-32 container mx-auto">
         <HomePage />
+        {/* All the Routes are Defined here */}
         <Routes>
           <Route path="/" element={<CreateFlashCard />} />
           <Route path="/myflashcard" element={<MyFlashCard />} />

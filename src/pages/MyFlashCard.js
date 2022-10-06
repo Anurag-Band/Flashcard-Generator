@@ -10,6 +10,7 @@ const MyFlashCard = () => {
 
   const [showAll, setShowAll] = useState(false);
 
+  // this sets the showlimit according to the state of the Show All Button
   const showLimit = !showAll ? 6 : flashcard.length;
 
   return (
@@ -17,6 +18,7 @@ const MyFlashCard = () => {
       {flashcard.length > 0 ? (
         <div>
           <div className="flex flex-wrap">
+            {/* This will only display 6 cards according to the problem statement */}
             {flashcard.slice(0, showLimit).map(({ card }, i) => (
               <MySingleFlashCard key={i} flashcard={card} />
             ))}

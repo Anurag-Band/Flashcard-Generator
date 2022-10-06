@@ -1,6 +1,7 @@
 import { useField } from "formik";
 
 const InputField = ({ label, ...props }) => {
+  // this is the custom input field component created for usages in the form component
   const [field, meta] = useField(props);
 
   return (

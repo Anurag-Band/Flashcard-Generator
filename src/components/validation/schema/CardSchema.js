@@ -1,5 +1,6 @@
 import * as Yup from "yup";
 
+// Defined the Schemas for the Validations to the user input from the form throught the appliction
 const FlashCardSchema = Yup.object().shape({
   groupid: Yup.string(),
   groupname: Yup.string()

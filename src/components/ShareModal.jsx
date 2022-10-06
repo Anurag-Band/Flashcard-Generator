@@ -21,6 +21,7 @@ const ShareModal = ({ isOpen, closeModal }) => {
   const INPUT_LINK = `http://www.almabetter.com/asdfjasfdlj`;
   const [isCopied, setIsCopied] = useState(false);
 
+  // this useEffect is to set the status to default, after copying the Link
   useEffect(() => {
     isCopied &&
       setTimeout(() => {
